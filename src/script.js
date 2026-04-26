@@ -30,6 +30,27 @@ function debugVRMBones(vrm) {
   }
 }
 
+async function vrmHandleFileUpload(event) {
+  if (vrm) vrm = unloadVRM(scene, vrm);
+
+  vrm = await loadVRM(event, scene);
+  if (vrm && vrm.scene) {
+    vrm.scene.rotation.y = Math.PI;
+    fitModelToView(camera, vrm.scene);
+
+    // Применяем шейдеры MToon
+    applyMToonForcibly(scene);
+
+    // Ждём следующего кадра и полного обновления сцены
+    setTimeout(() => {
+      setGreetingPose(vrm);
+      // Ещё раз обновляем матрицу после установки позы
+      vrm.scene.updateMatrixWorld(true);
+      renderer.render(scene, camera); // Принудительный рендер
+    }, 200);
+  }
+}
+
 async function init() {
   scene = createScene();
   camera = createCamera();
@@ -57,25 +78,16 @@ async function init() {
 
 // Загрузка модели
 const fileInput = document.getElementById('vrmFile');
-fileInput.addEventListener('change', async (event) => {
-  if (vrm) vrm = unloadVRM(scene, vrm);
+fileInput.addEventListener('change', vrmHandleFileUpload);
 
-  vrm = await loadVRM(event, scene);
-  if (vrm && vrm.scene) {
-    vrm.scene.rotation.y = Math.PI;
-    fitModelToView(camera, vrm.scene);
-
-    // Применяем шейдеры MToon
-    applyMToonForcibly(scene);
-
-    // Ждём следующего кадра и полного обновления сцены
-    setTimeout(() => {
-      setGreetingPose(vrm);
-      // Ещё раз обновляем матрицу после установки позы
-      vrm.scene.updateMatrixWorld(true);
-      renderer.render(scene, camera); // Принудительный рендер
-    }, 200);
-  }
+// Обработчик drag n drop загрузки модели
+viewer.addEventListener('dragover', async (event) => {
+    event.preventDefault();
+});
+viewer.addEventListener('drop', async (event) => {
+  event.preventDefault();
+  
+  vrmHandleFileUpload(event);
 });
 
 
