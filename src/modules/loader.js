@@ -4,7 +4,17 @@ import { VRMLoaderPlugin } from '@pixiv/three-vrm';
 import { applyMToonForcibly, configureMToon } from './mtoon.js';
 
 export async function loadVRM(event, scene) {
-  const file = event.target.files[0];
+  var file;
+  if (event.type == 'change') {
+    file = event.target.files[0];
+  }
+  else if (event.type == 'drop') {
+    if (event.dataTransfer.items) {
+        file = event.dataTransfer.items[0].getAsFile();
+    } else {
+        file = event.dataTransfer.files[0];
+    }
+  }
   if (!file) {
     console.error('❌ Файл не выбран');
     return null;
