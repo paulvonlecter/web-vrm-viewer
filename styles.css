@@ -1,0 +1,92 @@
+body {
+  margin: 0;
+  overflow: hidden;
+  font-family: Arial, sans-serif;
+}
+
+#viewer {
+  width: 100vw;
+  height: 100vh;
+  position: fixed;
+  top: 0;
+  left: 0;
+}
+
+#controlsOverlay {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  z-index: 100;
+  background: rgba(255, 255, 255, 0.8);
+  border-radius: 8px;
+  max-width: 300px;
+}
+
+.annotation {
+  position: absolute;
+  background: rgba(255, 255, 255, 0.8);
+  color: #333;
+  padding: 8px 12px;
+  border-radius: 6px;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+  pointer-events: none;
+  z-index: 1000;
+  font-size: 14px;
+  font-weight: bold;
+  text-align: center;
+}
+
+#controlsPanel {
+  pointer-events: auto;
+  background: rgba(240, 240, 240, 0.9);
+  border-radius: 8px;
+  padding: 15px;
+  max-width: 400px;
+}
+
+#controlsPanel summary {
+  cursor: pointer;
+  user-select: none;
+  padding: 10px;
+  background: #4CAF50;
+  color: white;
+  border-radius: 4px;
+  font-weight: bold;
+}
+
+.controls-group {
+  margin-bottom: 15px;
+}
+
+.controls-group h4 {
+  margin: 10px 0 5px 0;
+  color: #333;
+}
+
+.view-buttons {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+}
+
+button {
+  padding: 8px 12px;
+  cursor: pointer;
+  border: none;
+  border-radius: 4px;
+  background: #666;
+  color: white;
+  font-size: 12px;
+  transition: background 0.3s;
+}
+
+button:hover {
+  background: #888;
+}
+
+input[type="file"] {
+  padding: 8px;
+  border-radius: 4px;
+  width: 100%;
+  margin-bottom: 8px;
+}

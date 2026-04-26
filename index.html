@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Web VRM Viewer</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <!-- Панель управления поверх окна просмотра -->
+  <div id="controlsOverlay">
+    <details id="controlsPanel" open>
+      <summary>Управление</summary>
+
+      <div class="controls-group">
+        <h4>Загрузка модели</h4>
+        <input type="file" id="vrmFile" accept=".vrm" />
+        <button id="unloadBtn">Выгрузить модель</button>
+      </div>
+
+      <div class="controls-group">
+        <h4>Фон сцены</h4>
+        <div class="file-input-wrapper">
+          <input type="file" id="bgFile" accept="image/*" />
+          <span class="file-placeholder">Выберите изображение фона...</span>
+        </div>
+        <button id="clearBackgroundBtn">Очистить фон</button>
+      </div>
+
+      <div class="controls-group">
+        <h4>Виды камеры</h4>
+        <div class="view-buttons">
+          <button id="frontView">Вид спереди</button>
+          <button id="topView">Вид сверху</button>
+          <button id="sideView">Вид сбоку</button>
+          <button id="isoFront">Изометрия спереди</button>
+          <button id="isoBack">Изометрия сзади</button>
+          <button id="isoLeft">Изометрия слева</button>
+          <button id="isoRight">Изометрия справа</button>
+          <button id="resetView">Сброс вида</button>
+        </div>
+      </div>
+
+      <div class="controls-group">
+        <h4>Аннотации</h4>
+        <button id="addAnnotationBtn">Добавить выноску</button>
+      </div>
+    </details>
+  </div>
+
+  <!-- Область для отображения 3D‑сцены -->
+  <div id="viewer" style="width: 100vw; height: 100vh;"></div>
+
+  <!-- Импорт модулей -->
+  <script type="importmap">
+  {
+    "imports": {
+      "three": "https://cdn.jsdelivr.net/npm/three@0.180.0/build/three.module.js",
+      "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.180.0/examples/jsm/",
+      "@pixiv/three-vrm": "https://cdn.jsdelivr.net/npm/@pixiv/three-vrm@3/lib/three-vrm.module.min.js"
+    }
+  }
+  </script>
+
+  <!-- Главный JS‑файл -->
+  <script type="module" src="./src/script.js"></script>
+</body>
+</html>
